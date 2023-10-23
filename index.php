@@ -1,6 +1,13 @@
 <?php
 // https://getcomposer.org/doc/01-basic-usage.md#autoloading
 require __DIR__ . '/vendor/autoload.php';
+
+// connection parameters
+$servername = "localhost";//db on docker
+$servername = "db";
+$username = "movies";
+$password = "movies";
+$db = "movies";
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +27,8 @@ require __DIR__ . '/vendor/autoload.php';
         <a href="?action=main">Main</a>
         <a href="?action=dump">Dump</a>
         <a href="?action=testdb">Test Database</a>
-
+        <a href="?action=total_movies">Total Movies</a>
+        
 
         <?php
         if (isset($_GET['action']) && $_GET['action'] == 'main') {
@@ -48,12 +56,6 @@ require __DIR__ . '/vendor/autoload.php';
             <h1>Test Database</h1>
 
             <?php
-            $servername = "localhost";//db on docker
-            $servername = "db";
-            $username = "movies";
-            $password = "movies";
-            $db = "movies";
-
             try {
                 $conn = new PDO("mysql:host=$servername;dbname=$db", $username, $password);
                 // set the PDO error mode to exception
@@ -72,6 +74,29 @@ require __DIR__ . '/vendor/autoload.php';
                     }
                     ?>
                 </ul>
+                <?php
+
+
+            } catch (PDOException $e) {
+                echo "Connection failed: " . $e->getMessage();
+            }
+        }
+        if (isset($_GET['action']) && $_GET['action'] == 'total_movies') {
+            ?>
+            <h1>Total Movies: </h1>
+
+            <?php
+            try {
+                $conn = new PDO("mysql:host=$servername;dbname=$db", $username, $password);
+                // set the PDO error mode to exception
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                echo "Connected successfully";
+
+                $countMoviesQuery = $conn->prepare("SELECT COUNT(*) as count FROM movies");
+                $countMoviesQuery->execute();
+                $count = $countMoviesQuery->fetch(\PDO::FETCH_ASSOC);
+                ?>
+                <h2>Film totali:  <?php echo $count['count']; ?></h2>
                 <?php
 
 
