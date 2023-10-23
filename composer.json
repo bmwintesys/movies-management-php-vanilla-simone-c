@@ -1,0 +1,8 @@
+{
+    "name": "intesys/movies-management-skeleton-php-vanilla-app",
+    "type": "project",
+    "require-dev": {
+        "symfony/var-dumper": "^6.1"
+    },
+    "require": {}
+}
