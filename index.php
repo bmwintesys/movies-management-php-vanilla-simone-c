@@ -97,6 +97,19 @@ $db = "movies";
                 $count = $countMoviesQuery->fetch(\PDO::FETCH_ASSOC);
                 ?>
                 <h2>Film totali:  <?php echo $count['count']; ?></h2>
+                
+                <h3>2 film estratti random:</h3>
+                    <?php
+                    $moviesQuery = $conn->prepare("SELECT * FROM movies ORDER BY RAND() LIMIT 2");
+                    $moviesQuery->execute();
+                    $movies = $moviesQuery->fetchAll(\PDO::FETCH_ASSOC);
+                    //dump($movies);
+                    foreach ($movies as $movie) {
+                        echo '<p><strong>Titolo: </strong>' . $movie['title'] . '<br/>
+                              <strong>Anno: </strong>' . $movie['year'] . '<br/>
+                              <strong>Story:</strong><br/>' . $movie['story'] . '</p>';
+                    }
+                    ?>
                 <?php
 
 
