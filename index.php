@@ -28,6 +28,7 @@ $db = "movies";
         <a href="?action=dump">Dump</a>
         <a href="?action=testdb">Test Database</a>
         <a href="?action=total_movies">Total Movies</a>
+        <a href="?action=movies_list_with_views">Movies List with views</a>
         
 
         <?php
@@ -116,6 +117,12 @@ $db = "movies";
             } catch (PDOException $e) {
                 echo "Connection failed: " . $e->getMessage();
             }
+        }
+        if (isset($_GET['action']) && $_GET['action'] == 'movies_list_with_views') {
+            require_once('views/movies/list.php');
+        }
+        if (isset($_GET['action']) && $_GET['action'] == 'movie_detail') {
+            require_once('views/movies/show.php');
         }
         ?>
 
