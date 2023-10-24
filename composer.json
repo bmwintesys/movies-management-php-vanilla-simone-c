@@ -4,5 +4,12 @@
     "require-dev": {
         "symfony/var-dumper": "^6.1"
     },
-    "require": {}
+    "require": {
+        "league/csv": "^9.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "Php\\": "php/"
+        }
+    }
 }
